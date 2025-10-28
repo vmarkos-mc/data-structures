@@ -1,0 +1,9 @@
+# Ignore LaTeX .aux and similar files
+**/*.aux
+**/*.log
+**/*.nav
+**/*.out
+**/*.snm
+**/*.synctex.gz
+**/*.toc
+**/*.vrb
