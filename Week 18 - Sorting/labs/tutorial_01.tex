@@ -1,0 +1,190 @@
+% !TeX program = xelatex
+\documentclass[a4paper, 10pt]{article}
+\usepackage{amsthm, booktabs, enumitem, fancyhdr, lipsum, nameref, soul, titling, xcolor}
+\usepackage[many]{tcolorbox}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[colorlinks=true, allcolors=tBlue]{hyperref}
+
+% @ stuff
+
+\makeatletter
+\newcommand{\runningsection}{\@currentlabelname}
+\makeatother
+
+% Fonts
+
+\setmainfont{Lato}
+
+% Colours
+
+\definecolor{tGray}{HTML}{CECECE}
+\definecolor{tCoral}{HTML}{FF9F80}
+\definecolor{tRed}{HTML}{AC5050}
+\definecolor{tBlue}{HTML}{809AF0}
+\definecolor{tViolet}{HTML}{AA50BA}
+
+% Header and Footer
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\textcolor{tGray}{\thetitle}}
+\fancyhead[R]{\textcolor{tGray}{\runningsection}}
+\fancyfoot[L]{\textcolor{tGray}{Author: \theauthor}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\textcolor{tGray}{Last Modified: \thedate}}
+
+% Theorems
+
+\newtheorem{exercise}{Exercise}
+
+\newtheorem{remark}{Remark}[section]
+\tcolorboxenvironment{remark}{
+	colback=tCoral!20!white,
+	boxrule=0pt,
+	boxsep=10pt,
+	left=0pt,right=0pt,top=0pt,bottom=0pt,
+	oversize=-20pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\newtheorem{alert}{Alert}[section]
+\tcolorboxenvironment{alert}{
+	colback=tRed!20!white,
+	boxrule=0pt,
+	boxsep=10pt,
+	left=0pt,right=0pt,top=0pt,bottom=0pt,
+	oversize=-20pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\newtheorem*{solution}{Solution}
+\tcolorboxenvironment{solution}{
+	colback=tBlue!20!white,
+	boxrule=0pt,
+	boxsep=10pt,
+	left=0pt,right=0pt,top=0pt,bottom=0pt,
+	oversize=-20pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+\newtheorem*{tip}{Tip}
+\tcolorboxenvironment{tip}{
+	colback=tViolet!20!white,
+	boxrule=0pt,
+	boxsep=10pt,
+	left=0pt,right=0pt,top=0pt,bottom=0pt,
+	oversize=-20pt,
+	sharp corners,
+	before skip=\topsep,
+	after skip=\topsep,
+}
+
+% Redefine Abstract
+
+\renewenvironment{abstract}
+{\small
+	\begin{center}
+		\bfseries \abstractname\vspace{-.5em}\vspace{0pt}
+	\end{center}
+	\list{}{%
+		\setlength{\leftmargin}{10em}
+		\setlength{\rightmargin}{\leftmargin}%
+	}%
+	\item\relax}
+{\endlist}
+
+
+% Math Macros
+
+\newcommand{\pn}[1]{{\left({#1}\right)}}
+\newcommand{\qn}[1]{{\left[{#1}\right]}}
+\newcommand{\mn}[1]{{\left\{{#1}\right\}}}
+
+% Title
+
+\title{MC Template}
+\author{V. Markos}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	
+	\begin{abstract}
+		This week we implement last week's design in MS Access. We create all tables needed to accommodate client needs specified last week and populate them with some data.
+	\end{abstract}
+	%
+	%
+	%
+	\section*{Tables and\ldots Tables}\label{sec:Tables and... Tables}
+	%
+	Last week we created a normalised design for a commercial book--store with multiple stores. Make sure that you have finalised your design from last week. In case you haven't, take care to complete your design before proceeding to the rest.
+	%
+	%
+	%
+	\subsection*{Entities}\label{subsec:Entities}
+	%
+	Consider the data found at\footnote{Data structure has been intentionally bad, to force you not follow the spreadsheet in terms of structure for your database.} \texttt{./materials/booker\_paige\_sample.xlsx} and address the following questions / action items:
+	\begin{enumerate}
+		\item Does your design allow for these data to be properly stored within your Database? \textit{You need not have the same tables as those included in the spreadsheet, just to make sure that no information is lost.}
+		\item Make any changes required (if any) to your design to include all information provided in the spreadsheet.
+		\item Create an MS Access Database according to your design and add any data from the above spreadsheet in that database.
+	\end{enumerate}
+	%
+	%
+	%
+	\subsection*{Relationships}\label{subsec:Relationships}
+	%
+	Now that we have created a simple instance of our databases entities, it is high time we added some relationships. As discussed in class, MS Access implements a relational model, which means that everything is represented by tables. To that end, one--to--many relationships are naturally implemented through the use of foreign keys, while many--to--many relationships are implemented with the help of junction tables\footnote{We do not mention one--to--one relationships since they are quite uncommon in simple designs. Indeed, any one--to--one relationship can be naturally represented by including all related data in the same table, since such relationships relate one row of a table with exactly one row of another one. In any case, most probably, you will not need to implement any one--to--one relationships for this tutorial.}.
+	
+	Bearing in mind that above and your ER--diagram from last week, address the following questions / action items:
+	\begin{enumerate}
+		\item Which relationships have you spotted in last week's tutorial?
+		\item Do your relationships capture all relationships implied by the provided description (see also below) and the sample data?
+		\item Implement those relationships in your MS Access Database.
+	\end{enumerate}
+	%
+	%
+	%
+	\section*{(Reminder) The ``Booker Paige'' Scenario}\label{sec:The ``Booker Paige'' Scenario}
+	%
+	``Booker Paige'', the most popular book--stores brand of your town, Semicolon Springs, is still keeping all their records using pen and paper; a lot of paper. After a lot of pressure, and due to environmental reasons, their owners have decided to make a leap forward and make use of (more) modern Database Management Systems (DBMS). To that end, they have asked you to help them with the design of such a system, tailored to their needs. To your assistance, they have also made an effort to track down their needs in terms of data storage, data flows, and relevant functionalities, as described below:
+	
+	\begin{quote}
+		``We have a lot of book--stores throughout the town. In each of these book--stores our customers can find books or order them if they are out of stock. We have several employees, each one working for a single particular book--store, so none of our employees works in more than one of our stores. Each employee is assigned with at most two of the following roles:
+		\begin{itemize}
+			\item cashier, whose tasks are mostly related to selling books to customers, including receiving payments and packing books for them;
+			\item inventory manager, whose main task is managing books and keeping track of which books are / should be to which departments of the book--store;
+			\item bookseller, whose main task is helping customers navigate throughout the book--store and find the book(s) they want to;
+			\item book--store manager, whose main task is to coordinate other employees and take administrative decisions about the book--store (each store has exactly one manager).
+		\end{itemize}
+		In terms of data, we are keeping large notebooks full of information regarding:
+		\begin{itemize}
+			\item our books: ISBN, author(s), title, number of pages, genre(s), publisher, thickness, price, publisher country, format (hardback, paperback, e--book);
+			\item our employees: name, surname, Social Security Number, date of birth, salary, role, book--store they work to, personal address, working address, date of first employment;
+			\item our book--stores: address, book--store manager, inventory, employees, monthly sales split per book title.
+		\end{itemize}
+		In terms of functionality, we would like to be able to:
+		\begin{itemize}
+			\item add / remove employees, books, book--stores, managers and, in general, anything that makes sense to be added or removed from our database;
+			\item track down book sells and book orders for each book--store;
+			\item find the best--selling books for a given month and / or book--store;
+			\item find the most efficient book--store in terms of book sales and / or net profit;
+			\item get an annual income / outcome report for all our book--stores and each book--store separately;
+			\item find book sells for each book title separately, potentially specifying further about a specific book--store.
+		\end{itemize}
+		Finally, we would like to remark that you are free to add any meaningful functionality on top of the above.''
+	\end{quote}
+	
+	In the above, several points might be a bit vague; this is intentional (probably) and it is your responsibility to fill in some details throughout the course of the tutorials --- of course, we will discuss them in class to help ourselves navigate throughout the task. Moreover, as remarked above, you are free to further specify, extend or improve requested functionality, yet not at the expense of it.
+	%
+	%
+	%
+\end{document}

@@ -1,0 +1,3 @@
+Add suboptimal when stop at reached node to Dijk
+
+Add stop to a* - Note that when 0 it is Dijk with stopping condition	
