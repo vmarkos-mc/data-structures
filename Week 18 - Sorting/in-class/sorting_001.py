@@ -20,7 +20,40 @@ def bubble_sort(ns, key = lambda x, y: x >= y) -> list:
 
 def merge_sort(ns) -> list:
     """Implements merge sort, returning a new list"""
-    return ns
+    n = len(ns)
+    if n == 0:
+        return [] # Returns a **new** empty list
+    if n == 1:
+        return [ns[0]] # Again, returns a copy of the input list
+    middle = n // 2 # BEWARE: Integer division!
+    left = ns[:middle] # Up to `middle - 1`
+    right = ns[middle:] # From `middle`
+    return __merge(merge_sort(left), merge_sort(right))
+
+
+def __merge(a, b):
+    """Implements order respecting merging of `a` and `b`"""
+    c = []
+    i, j = 0, 0
+    while i < len(a) and j < len(b):
+        if a[i] < b[j]: # or `a[i] <= b[j]`, which also preserves initial ordering.
+            c.append(a[i])
+            i += 1
+        else:
+            c.append(b[j])
+            j += 1
+    if i == len(a): # If `a` was exhausted first
+        c += b[j:] # then just copy the rest of `b`
+    else: # equivalent to `elif j == len(b)`
+        c += a[i:] # otherwise, just copy the rest of `a`
+    return c
+
+
+def debug():
+    a = [1, 3, 6, 8, 9]
+    b = [0, 1, 2, 3, 4, 8]
+    c = __merge(a, b)
+    print(c)
 
 
 def list_to_str(ls) -> str:
@@ -36,3 +69,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # debug()
