@@ -12,8 +12,10 @@ class MaxHeap:
     # "MaxHeap__get_parent_of()".
     def __get_parent_of(self, i: int):
         """Returns parent of element at `i`"""
+        if i == 0:
+            return (-1, None)
         parent_index = (i - 1) // 2
-        return self.heap[parent_index]
+        return (parent_index, self.heap[parent_index])
 
     
     def __get_left_child_of(self, i: int):
@@ -37,18 +39,24 @@ class MaxHeap:
         in case any of those is absent"""
         left = self.__get_left_child_of(i)
         right = self.__get_right_child_of(i)
-        return dict(left, right)
+        return dict((left, right))
 
 
     def pop(self):
         """Returns the heap's root node"""
-        root = self.pop(0) # Keep the root element somewhere
-        last = self.heap.pop() # Get the last element
+        root = self.heap.pop(0) # Keep the root element somewhere
+        try:
+            last = self.heap.pop() # Get the last element
+        except IndexError:
+            return root
         self.heap.insert(0, last)
         current = 0
         children = self.__get_children_of(current)
-        while any(child is not None and child > current for child in children.values()):
-            max_child = max(children.items(), key=lambda pair: pair[1])
+        while any(child is not None and child > self.heap[current] for child in children.values()):
+            if children[1] is not None:
+                max_child = max(children.items(), key=lambda pair: pair[1])
+            else:
+                max_child = children[0]
             # Swap max_child with current
             self.__swap(current, max_child[0])
             current = max_child[0]
@@ -64,6 +72,13 @@ class MaxHeap:
 
     def add(self, item):
         """Adds an item to the heap"""
+        self.heap.append(item)
+        current = len(self.heap) - 1
+        parent = self.__get_parent_of(current)
+        while parent[0] != -1 and parent[1] <= self.heap[current]:
+            self.__swap(current, parent[0])
+            current = parent[0]
+            parent = self.__get_parent_of(current)
 
 
     def __len__(self) -> int:
