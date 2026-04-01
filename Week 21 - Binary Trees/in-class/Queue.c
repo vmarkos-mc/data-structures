@@ -42,7 +42,10 @@ bool queue_insert(Queue* queue, int item) {
 }
 
 bool queue_dequeue(Queue* queue, int* item) {
-    
+    if (queue_is_empty(queue)) return false;
+    queue->first = (queue->first + 1) % queue->capacity;
+    *item = *(queue->queue + (queue->first));
+    queue->count--;
     return true;
 }
 
@@ -51,5 +54,5 @@ bool queue_is_full(Queue* queue) {
 }
 
 bool queue_is_empty(Queue* queue) {
-
+    return queue->count == 0;
 }
