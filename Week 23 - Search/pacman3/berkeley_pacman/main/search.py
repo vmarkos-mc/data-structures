@@ -62,6 +62,23 @@ def depth_first_search(problem):
     #     path_cost = problem.get_cost_of_actions(example_path)
     #     return example_path
     
+    # DFS in pseudocode:
+    # input: Graph: G, start state: s, goal test: is_goal
+    # fringe = Stack()
+    # fringe.push(s)
+    # visited = {}
+    # while fringe:
+    #   current = fringe.pop()
+    #   visited.add(current)
+    #   if is_goal(current):
+    #       return <whatever we need to return>
+    #   successors = current.get_successors()
+    #   for s in successors:
+    #       if s not in visited:
+    #           fringe.push(s)
+    #       visited.add(s)
+    #   return None
+
     util.raise_not_defined()
 
 
