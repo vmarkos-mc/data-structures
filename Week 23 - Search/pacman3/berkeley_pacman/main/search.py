@@ -79,7 +79,24 @@ def depth_first_search(problem):
     #       visited.add(s)
     #   return None
 
-    util.raise_not_defined()
+    start_state = problem.get_start_state()
+    fringe = [ start_state ]
+    visited = set()
+    path = []
+    while len(fringe) > 0:
+        current = fringe.pop()
+        # Update path at some point
+        visited.add(current)
+        if problem.is_goal_state(current):
+            return path
+        transitions = problem.get_successors(current)
+        for transition in transitions:
+            n = transition.state
+            if n not in visited:
+                fringe.append(n)
+    # Think how we should compute the path, e.g., as in Dijkstra's algorithm
+    return path
+
 
 
 def breadth_first_search(problem):
